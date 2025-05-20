@@ -5,14 +5,14 @@ def arnold_cat_map(img_array, iterations=1):
     """
     Mapa de Arnold
     """
-    N = img_array.shape[0]  # Tamaño de la dimension de la imagen (ancho o alto)
+    N = img_array.shape[0]  # Tamaño de la dimension de la imagen
     result = np.copy(img_array)  # Copia del arreglo
     
     for _ in range(iterations):
         temp = np.zeros_like(result)  # Arreglo temporal
         for x in range(N):
             for y in range(N):
-                # Aplicación de las transformaciones del mapa de Arnold
+                # Aplicacion de las transformaciones
                 x_new = (x + y) % N
                 y_new = (x + 2*y) % N
                 temp[x_new, y_new] = result[x, y]  # Asignacion de los valores
@@ -31,7 +31,7 @@ def main():
     height, width = img_array.shape[:2]
     if height != width:
         min_dim = min(height, width)
-        img_array = img_array[:min_dim, :min_dim, :]  # Recorta la imagen al tamañomínimo
+        img_array = img_array[:min_dim, :min_dim, :]  # Recorta la imagen
         height, width = min_dim, min_dim
     
     # Numero de iteraciones
@@ -40,7 +40,7 @@ def main():
     # Aplicacion del mapa
     scrambled_image = arnold_cat_map(img_array, iterations=iterations)
     
-    # Conversión de nuevo a objeto de imagen
+    # Conversion de nuevo a imagen
     img_scrambled = Image.fromarray(scrambled_image.astype('uint8'))  # Conversion
     img_scrambled.save(f"arnold_{iterations}.png")  # Guardado de la imagen
     print(f"Imagen guardada como arnold_{iterations}.png")
